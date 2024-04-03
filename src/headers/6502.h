@@ -89,6 +89,14 @@ public:
   void irq(); // Interrupt Request
   void nmi(); // Non-Maskable Interrupt
 
+  uint8_t fetch();
+  uint8_t fetched = 0x00;
+
+  uint16_t addr_abs = 0x0000;
+  uint16_t addr_rel = 0x00;
+  uint8_t opcode = 0x00;
+  uint8_t cycles = 0;
+
 public:
   enum FLAGS6502 {
     C = (1 << 0), // Carry Bit
