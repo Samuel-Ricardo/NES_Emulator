@@ -1,4 +1,6 @@
 #include <cstdint>
+#include <string>
+#include <vector>
 class Bus;
 
 class C6502 {
@@ -126,4 +128,13 @@ private:
 
   uint8_t getFlag(FLAGS6502 f);
   void setFlag(FLAGS6502 f, bool v);
+
+  struct INSTRUCTION {
+    std::string name;
+    uint8_t (C6502::*operate)(void) = nullptr;
+    uint8_t (C6502::*addrmode)(void) = nullptr;
+    uint8_t cycles = 0;
+  };
+
+  std::vector<INSTRUCTION> lookup;
 };
