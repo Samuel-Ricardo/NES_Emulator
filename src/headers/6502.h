@@ -83,6 +83,12 @@ public:
   // Illegal OPCODE
   uint8_t XXX();
 
+  // SIGNALS
+  void clock();
+  void reset();
+  void irq(); // Interrupt Request
+  void nmi(); // Non-Maskable Interrupt
+
 public:
   enum FLAGS6502 {
     C = (1 << 0), // Carry Bit
