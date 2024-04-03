@@ -126,8 +126,9 @@ private:
   uint8_t read(uint16_t addr);
   void write(uint16_t addr, uint8_t data);
 
-  uint8_t getFlag(FLAGS6502 f);
-  void setFlag(FLAGS6502 f, bool v);
+public:
+  uint8_t GetFlag(FLAGS6502 f);
+  void SetFlag(FLAGS6502 f, bool v);
 
   struct INSTRUCTION {
     std::string name;

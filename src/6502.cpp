@@ -158,3 +158,42 @@ void C6502::clock() {
 
   cycles--;
 };
+
+void C6502::SetFlag(FLAGS6502 f, bool v) {
+
+  if (v)
+    status |= f;
+  else
+    status &= ~f;
+}
+
+uint8_t C6502::IMP() {
+  fetched = a;
+  return 0;
+}
+
+uint8_t C6502::IMM() {
+  addr_abs = pc++;
+  return 0;
+}
+
+uint8_t C6502::ZP0() {
+  addr_abs = read(pc);
+  pc++;
+  addr_abs &= 0x00FF;
+  return 0;
+}
+
+uint8_t C6502::ZPX() {
+  addr_abs = (read(pc) + x);
+  pc++;
+  addr_abs &= 0x00FF;
+  return 0;
+}
+
+uint8_t C6502::ZPY() {
+  addr_abs = (read(pc) + y);
+  pc++;
+  addr_abs &= 0x00FF;
+  return 0;
+}
