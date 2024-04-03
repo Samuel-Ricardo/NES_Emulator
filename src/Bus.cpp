@@ -6,6 +6,8 @@ Bus::Bus() {
   // clear ram
   for (auto &i : ram)
     i = 0X00;
+
+  cpu.CconnectBus(this);
 }
 
 void Bus::write(uint16_t addr, uint8_t data) {
