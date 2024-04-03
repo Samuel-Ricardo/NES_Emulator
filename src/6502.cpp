@@ -140,3 +140,21 @@ C6502::~C6502() {}
 uint8_t C6502::read(uint16_t addr) { return bus->read(addr, false); };
 
 void C6502::write(uint16_t addr, uint8_t data) { bus->write(addr, data); };
+
+void C6502::clock() {
+
+  if (cycles == 0) {
+
+    opcode = read(pc);
+    pc++;
+
+    cycles = lookup[opcode].cycles;
+
+    uint8_t additional_cycle1 = (this->*lookup[opcode].addrmode)();
+    uint8_t additional_cycle2 = (this->*lookup[opcode].operate)();
+
+    cycles += (additional_cycle1 & additional_cycle2);
+  }
+
+  cycles--;
+};
