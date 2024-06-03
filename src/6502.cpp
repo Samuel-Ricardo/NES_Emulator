@@ -313,9 +313,20 @@ uint8_t C6502::REL() {
 // INFO: INSTRUCTIONS
 
 uint8_t C6502::fetch() {
-
   if (!(lookup[opcode].addrmode == &C6502::IMP)) {
     fetched = read(addr_abs);
     return fetched;
   }
+}
+
+uint8_t C6502::AND() {
+
+  fetch();
+
+  a = a & fetched;
+
+  SetFlag(Z, a == 0x00);
+  SetFlag(N, a & 0x80);
+
+  return 1;
 }
