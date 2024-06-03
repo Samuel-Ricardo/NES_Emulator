@@ -543,3 +543,28 @@ void C6502::reset() {
 
   cycles = 8;
 }
+
+void C6502::irq() {
+
+  if (GetFlag(I) == 0) {
+
+    write(0x0100 + stkp, (pc >> 8) & 0x00FF);
+    stkp--;
+    write(0x0100 + stkp, pc & 0x00FF);
+    stkp--;
+
+    SetFlag(B, 0);
+    SetFlag(U, 1);
+    SetFlag(I, 1);
+
+    write(0x0100 + stkp, status);
+    stkp--;
+
+    addr_abs = 0xFFFE;
+    uint16_t lo = read(addr_abs + 0);
+    uint16_t hi = read(addr_abs + 1);
+    pc = (hi << 8) | lo;
+
+    cycles = 7;
+  }
+}
