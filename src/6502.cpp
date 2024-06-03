@@ -395,3 +395,18 @@ uint8_t C6502::BMI() {
 
   return 0;
 }
+
+uint8_t C6502::BNE() {
+
+  if (GetFlag(Z) == 0) {
+    cycles++;
+    addr_abs = pc + addr_rel;
+
+    if ((addr_abs & 0xFF00) != (pc & 0xFF00))
+      cycles++;
+
+    pc = addr_abs;
+  }
+
+  return 0;
+}
