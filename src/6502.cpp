@@ -246,3 +246,24 @@ uint8_t C6502::ABY() {
   else
     return 0;
 }
+
+// INFO: THIS IS HOW 6502 IMPLEMENTS POINTERS
+
+uint8_t C6502::IND() {
+
+  uint16_t pointer_lo = read(pc);
+  pc++;
+
+  uint16_t pointer_hi = read(pc);
+  pc++;
+
+  uint16_t pointer = (pointer_hi << 8) | pointer_lo;
+
+  if (pointer_lo == 0x00FF) { // NOTE: SIMULATE PAGE BOUNDARY HARDWARE BUG
+    addr_abs = (read(pointer & 0xFF00) << 8) | read(pointer + 0);
+  } else { // NOTE: BEHAVE NORMALLY
+    addr_abs = (read(pointer + 1) << 8) | read(pointer + 0);
+  }
+
+  return 0;
+}
