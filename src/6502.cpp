@@ -1,5 +1,6 @@
 #include "headers/6502.h"
 #include <cstdint>
+#include <random>
 
 C6502::C6502() {
 
@@ -589,4 +590,21 @@ void C6502::nmi() {
   pc = (hi << 8) | lo;
 
   cycles = 8;
+}
+
+uint8_t C6502::RTI() {
+
+  stkp++;
+  status = read(0x0100 + stkp);
+
+  status &= ~B;
+  status &= ~U;
+
+  stkp++;
+  pc = (uint16_t)read(0x0100 + stkp);
+
+  stkp++;
+  pc |= (uint16_t)read(0x0100 + stkp) << 8;
+
+  return 0;
 }
