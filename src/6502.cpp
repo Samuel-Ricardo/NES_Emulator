@@ -1,4 +1,5 @@
 #include "headers/6502.h"
+#include <cstdint>
 
 C6502::C6502() {
 
@@ -197,5 +198,17 @@ uint8_t C6502::ZPY() {
   addr_abs = (read(pc) + y);
   pc++;
   addr_abs &= 0x00FF;
+  return 0;
+}
+
+uint8_t C6502::ABS() {
+
+  uint16_t lo = read(pc);
+  pc++;
+
+  uint16_t hi = read(pc);
+  pc++;
+
+  addr_abs = (hi << 8) | lo;
   return 0;
 }
