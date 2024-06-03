@@ -267,3 +267,16 @@ uint8_t C6502::IND() {
 
   return 0;
 }
+
+uint8_t C6502::IZX() {
+
+  uint16_t t = read(pc);
+  pc++;
+
+  uint16_t lo = read((uint16_t)(t + (uint16_t)x) & 0x00FF);
+  uint16_t hi = read((uint16_t)(t + (uint16_t)x + 1) & 0x00FF);
+
+  addr_abs = (hi << 8) | lo;
+
+  return 0;
+}
