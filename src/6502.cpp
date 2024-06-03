@@ -485,3 +485,19 @@ uint8_t C6502::ADC() {
   a = temp & 0x00FF;
   return 1;
 }
+
+uint8_t C6502::SBC() {
+
+  fetch();
+
+  uint16_t value = ((uint16_t)fetched) ^ 0x00FF;
+  uint16_t temp = (uint16_t)a + value + (uint16_t)GetFlag(C);
+
+  SetFlag(C, temp & 0xFF00);
+  SetFlag(Z, ((temp & 0x00FF) == 0));
+  SetFlag(V, (temp ^ (uint16_t)a) & (temp ^ value) & 0x0080);
+  SetFlag(N, temp & 0x0080);
+
+  a = temp & 0x00FF;
+  return 1;
+}
