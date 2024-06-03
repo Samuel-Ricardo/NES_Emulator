@@ -7,11 +7,12 @@ Bus::Bus() {
   for (auto &i : ram)
     i = 0X00;
 
-  cpu.CconnectBus(this);
+  cpu.ConnectBus(this);
 }
 
 void Bus::write(uint16_t addr, uint8_t data) {
 
+  // CHECK THE VALID RANGE OF ADDRESS
   if (addr >= 0x0000 && addr <= 0xFFFF)
     ram[addr] = data;
 }

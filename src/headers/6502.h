@@ -8,7 +8,7 @@ public:
   C6502();
   ~C6502();
 
-  void CconnectBus(Bus *n) { bus = n; };
+  void ConnectBus(Bus *n) { bus = n; };
 
   // Addressing Modes
   uint8_t IMP();

@@ -167,6 +167,8 @@ void C6502::SetFlag(FLAGS6502 f, bool v) {
     status &= ~f;
 }
 
+// ADDRESSING MODES
+
 uint8_t C6502::IMP() {
   fetched = a;
   return 0;
