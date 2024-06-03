@@ -502,4 +502,10 @@ uint8_t C6502::SBC() {
   return 1;
 }
 
-uint8_t
+// STACK
+
+uint8_t C6502::PHA() {
+  write(0x0100 + stkp, a);
+  stkp--; // STKP = STACK POINTER
+  return 0;
+}
