@@ -280,3 +280,21 @@ uint8_t C6502::IZX() {
 
   return 0;
 }
+
+uint8_t C6502::IZY() {
+
+  uint16_t t = read(pc);
+  pc++;
+
+  uint16_t lo = read(t & 0x00FF);
+  uint16_t hi = read((t + 1) & 0x00FF);
+
+  addr_abs = (hi << 8) | lo;
+  addr_abs += y;
+
+  if ((addr_abs & 0xFF00) != (hi << 8)) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
