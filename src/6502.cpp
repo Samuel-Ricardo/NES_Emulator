@@ -379,3 +379,19 @@ uint8_t C6502::BEQ() {
 
   return 0;
 }
+
+uint8_t C6502::BMI() {
+
+  if (GetFlag(N) == 1) {
+
+    cycles++;
+    addr_abs = pc + addr_rel;
+
+    if ((addr_abs & 0xFF00) != (pc & 0xFF00))
+      cycles++;
+
+    pc = addr_abs;
+  }
+
+  return 0;
+}
