@@ -212,3 +212,20 @@ uint8_t C6502::ABS() {
   addr_abs = (hi << 8) | lo;
   return 0;
 }
+
+uint8_t C6502::ABX() {
+
+  uint16_t lo = read(pc);
+  pc++;
+
+  uint16_t hi = read(pc);
+  pc++;
+
+  addr_abs = (hi << 8) | lo;
+  addr_abs += x;
+
+  if ((addr_abs & 0xFF00) != (hi << 8))
+    return 1;
+  else
+    return 0;
+}
