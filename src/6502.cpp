@@ -468,3 +468,20 @@ uint8_t C6502::CLD() {
   SetFlag(D, false);
   return 0;
 }
+
+uint8_t C6502::ADC() {
+
+  fetch();
+
+  uint16_t temp = (uint16_t)a + (uint16_t)fetched + (uint16_t)GetFlag(C);
+
+  SetFlag(C, temp > 255);
+  SetFlag(Z, (temp & 0x00FF) == 0);
+  SetFlag(N, temp & 0x80);
+  SetFlag(
+      V, (~((uint16_t)a ^ (uint16_t)fetched) & ((uint16_t)a ^ (uint16_t)temp)) &
+             0x0080);
+
+  a = temp & 0x00FF;
+  return 1;
+}
