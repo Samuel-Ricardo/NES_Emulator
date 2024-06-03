@@ -501,3 +501,5 @@ uint8_t C6502::SBC() {
   a = temp & 0x00FF;
   return 1;
 }
+
+uint8_t
