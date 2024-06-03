@@ -298,3 +298,14 @@ uint8_t C6502::IZY() {
     return 0;
   }
 }
+
+// INFO: RELATIVE ADDRESSES
+uint8_t C6502::REL() {
+
+  addr_rel = read(pc);
+  pc++;
+
+  if (addr_rel & 0x80)
+    addr_rel |= 0xFF00;
+  return 0;
+}
