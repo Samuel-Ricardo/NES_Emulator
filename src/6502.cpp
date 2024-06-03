@@ -520,3 +520,26 @@ uint8_t C6502::PLA() {
 
   return 0;
 }
+
+void C6502::reset() {
+
+  a = 0;
+  x = 0;
+  y = 0;
+
+  stkp = 0xFD;
+  status = 0x00 | U;
+
+  addr_abs = 0xFFFC;
+
+  uint16_t lo = read(addr_abs + 0);
+  uint16_t hi = read(addr_abs + 1);
+
+  pc = (hi << 8) | lo;
+
+  addr_rel = 0x0000;
+  addr_abs = 0x0000;
+  fetched = 0x00;
+
+  cycles = 8;
+}
