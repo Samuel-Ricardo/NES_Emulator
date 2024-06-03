@@ -309,3 +309,13 @@ uint8_t C6502::REL() {
     addr_rel |= 0xFF00;
   return 0;
 }
+
+// INFO: INSTRUCTIONS
+
+uint8_t C6502::fetch() {
+
+  if (!(lookup[opcode].addrmode == &C6502::IMP)) {
+    fetched = read(addr_abs);
+    return fetched;
+  }
+}
