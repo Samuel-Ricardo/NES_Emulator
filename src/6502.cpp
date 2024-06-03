@@ -463,3 +463,8 @@ uint8_t C6502::CLC() {
   SetFlag(C, false);
   return 0;
 }
+
+uint8_t C6502::CLD() {
+  SetFlag(D, false);
+  return 0;
+}
