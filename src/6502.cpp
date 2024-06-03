@@ -509,3 +509,14 @@ uint8_t C6502::PHA() {
   stkp--; // STKP = STACK POINTER
   return 0;
 }
+
+uint8_t C6502::PLA() {
+
+  stkp++;
+  a = read(0x001 + stkp);
+
+  SetFlag(Z, a == 0x00);
+  SetFlag(N, a & 0x80);
+
+  return 0;
+}
