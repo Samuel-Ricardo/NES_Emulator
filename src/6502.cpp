@@ -347,3 +347,19 @@ uint8_t C6502::BCS() {
 
   return 0;
 }
+
+uint8_t C6502::BCC() {
+
+  if (GetFlag(C) == 0) {
+
+    cycles++;
+    addr_abs = pc + addr_rel;
+
+    if ((addr_abs & 0xFF00) != (pc & 0xFF00))
+      cycles++;
+
+    pc = addr_abs;
+  }
+
+  return 0;
+}
