@@ -103,12 +103,6 @@ public:
   void irq();   // Interrupt Request
   void nmi();   // Non-Maskable Interrupt Request
   uint8_t fetch();
-  uint8_t fetched = 0x00;
-
-  uint16_t addr_abs = 0x0000;
-  uint16_t addr_rel = 0x00;
-  uint8_t opcode = 0x00;
-  uint8_t cycles = 0;
 
   /* INFO:
    * Indicates the current instruction state has completed by returning true.
@@ -146,6 +140,15 @@ public:
 private:
   uint8_t GetFlag(FLAGS6502 f);
   void SetFlag(FLAGS6502 f, bool v);
+
+  // INFO: ASSISSTIVE VARIABLES TO FACILITE EMULATION
+  uint8_t fetched = 0x00;     // REPRESENTS THE WORKING INPUT VALUE TO THE - ALU
+  uint8_t temp = 0x0000;      // A CONVENIENCE VARIABLE USED EVERY WHERE
+  uint16_t addr_abs = 0x0000; // ALL USED MEMORY ADDRESSES END UP IN HERE
+  uint16_t addr_rel = 0x00;   // REPRESENTS ABSOLUTE ADDRESS FOLLOWING A BRANCH
+  uint8_t opcode = 0x00;      // IS THE INSTRUCTION BYTE
+  uint8_t cycles = 0; // COUNT HOW MANY CYCLES THE INSTRUCTION HAS REMAINING
+  uint8_t clock_count = 0; // A GLOBAL ACUMULATOR OF THE NUMBER OF CLOCKS
 
   // INFO: Linkage to the communications bus
   Bus *bus = nullptr;
