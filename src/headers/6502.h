@@ -98,11 +98,10 @@ public:
   uint8_t XXX();
 
   // SIGNALS
-  void clock();
-  void reset();
-  void irq(); // Interrupt Request
-  void nmi(); // Non-Maskable Interrupt
-
+  void clock(); // Perform one clock cycle's worth of update
+  void reset(); // Reset Interrupt - Forces CPU into known state
+  void irq();   // Interrupt Request
+  void nmi();   // Non-Maskable Interrupt Request
   uint8_t fetch();
   uint8_t fetched = 0x00;
 
@@ -110,6 +109,13 @@ public:
   uint16_t addr_rel = 0x00;
   uint8_t opcode = 0x00;
   uint8_t cycles = 0;
+
+  /*
+   * Indicates the current instruction state has completed by returning true.
+   * Is a utility to enable a "step-by-step" debugging experience
+   * whiteout manually clock every cycle
+   */
+  bool complete();
 
 public:
   enum FLAGS6502 {
