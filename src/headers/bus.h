@@ -1,3 +1,4 @@
+#pragma once
 #include "6502.h"
 #include <array>
 #include <cstdint>
