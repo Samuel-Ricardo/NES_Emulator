@@ -117,6 +117,8 @@ public:
    */
   bool complete();
 
+  std::map<uint16_t, std::string> disassemble(uint16_t nStart, uint16_t nStop);
+
 public:
   enum FLAGS6502 {
     C = (1 << 0), // Carry Bit
