@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-// INFO: Uncomment to enable logging
+// NOTE: Uncomment to enable logging
 // #define LOGMODE
 
 #ifdef LOGMODE
@@ -110,13 +110,16 @@ public:
   uint8_t opcode = 0x00;
   uint8_t cycles = 0;
 
-  /*
+  /* INFO:
    * Indicates the current instruction state has completed by returning true.
    * Is a utility to enable a "step-by-step" debugging experience
    * whiteout manually clock every cycle
    */
   bool complete();
 
+  // INFO: Create a Map of strings,
+  // with keys equivalent to instruction start locations in memory,
+  // for the specific address range
   std::map<uint16_t, std::string> disassemble(uint16_t nStart, uint16_t nStop);
 
 public:
@@ -141,14 +144,13 @@ public:
   uint8_t status = 0x00; // Status Register
 
 private:
-  Bus *bus = nullptr;
-
-  uint8_t read(uint16_t addr);
-  void write(uint16_t addr, uint8_t data);
-
-public:
   uint8_t GetFlag(FLAGS6502 f);
   void SetFlag(FLAGS6502 f, bool v);
+
+  // INFO: Linkage to the communications bus
+  Bus *bus = nullptr;
+  uint8_t read(uint16_t addr);
+  void write(uint16_t addr, uint8_t data);
 
   struct INSTRUCTION {
     std::string name;
