@@ -1,6 +1,18 @@
+#pragma once
+
 #include <cstdint>
 #include <string>
+
+#include <map>
 #include <vector>
+
+// INFO: Uncomment to enable logging
+// #define LOGMODE
+
+#ifdef LOGMODE
+#include <stdio.h>
+#endif
+
 class Bus;
 
 class C6502 {
